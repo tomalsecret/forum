@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8" />
+    <title>Wyłącz użytkownika</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="@{/user/admin/disable}" method="POST">
+            <div><label><input class="form-control averagewidth" placeholder="Nazwa użytkownika" type="text" name="user_name"/> </label></div>
+            <button type="submit" class="btn btn-dangerr">Zablokuj użytkownika</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

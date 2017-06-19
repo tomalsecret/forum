@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Mój profil</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+
+    <h1 th:inline="text">Tutaj możesz zobaczyć swoje wiadomości</h1>
+<br/>
+
+    <form th:action="@{/private_messages/}" method="get">
+
+        <button type="submit" class="btn btn-info">Moje prywatne wiadomości</button>
+</form>
+</div>
+</body>
+</html>

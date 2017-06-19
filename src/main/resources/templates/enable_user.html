@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Włącz użytkownika</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="@{/user/admin/enable}" method="POST">
+            <div><label> <input class="form-control averagewidth" placeholder="Nazwa użytkownika" type="text" name="user_name"/> </label></div>
+            <div><button type="submit" class="btn btn-success">Odblokuj użytkownika</button></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

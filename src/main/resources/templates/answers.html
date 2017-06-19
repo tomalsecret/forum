@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Odpowiedzi</title>
+    <script type="text/javascript">
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Chrome, Safari and Opera
+            document.documentElement.scrollTop = 0; // For IE and Firefox
+        }
+    </script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+
+
+    <div th:each="postcount : ${post}">
+        <table class="table" style="width: 1000px; border-bottom: 0px">
+            <tr class="headerr" style="font-weight:bold">
+                <td>Autor:</td>
+
+                <td>Kategoria:</td>
+                <td>Data:</td>
+                <td style="width: 150px">Ilość plusów: <span style="font-weight:normal"
+                                                             th:text="${postcount.ilosc_plusow}"></span></td>
+            </tr>
+            <tr  class="inner">
+                <td style="width: 100px">
+                    <a th:href="@{'/user/user_profile/'+${postcount.user_name}}" th:text="${postcount.user_name}"/>
+
+                </td>
+
+
+                <td style="width: 100px" th:text="${postcount.category}"></td>
+                <td style="width: 150px" th:text="${postcount.date}"></td>
+                <td >
+
+                        <span sec:authorize="isAnonymous()" style="color:#E37222">Zaloguj się, by głosować.</span>
+                        <form sec:authorize="isAuthenticated()" action="/forum/like" method="POST">
+                    <span th:switch="${if_liked}">
+
+                        <input type="hidden" th:name="id" th:value="${postcount.public_message_id}"/>
+                        <input type="hidden" th:name="if_liked" th:value="${if_liked}"/>
+
+                        <span th:switch="${if_liked}">
+
+                            <button th:case="false" type="submit" class="btn btn-default">Polub to</button>
+                             <button th:case="true" type="submit" class="btn btn-success">Usuń polubienie</button>
+
+                    </span>
+                    </span>
+                        </form>
+
+                </td>
+
+            </tr>
+            <tr  class="inner">
+                <th style="width: 50px;  color: #0375B4;text-align: left">Temat:</th>
+                <th></th><th></th><th></th>
+            </tr>
+            <tr  class="inner">
+                <td class="a" th:text="${postcount.topic}"></td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr  class="inner">
+                <th style="width: 100px;  color: #0375B4;text-align: left" >Treść posta:</th>
+                <th></th><th></th><th></th>
+            </tr>
+            <tr  class="inner">
+                <td class="a" th:text="${postcount.content}"></td>
+                <td></td><td></td><td></td>
+
+
+            </tr>
+        </table>
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Powrót na górę strony</button>
+
+        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{'/forum/delete/post'}" method="post">
+            <input type="hidden" th:value="${postcount.public_message_id}" th:name="id"/>
+            <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+        <br/>
+    </div>
+
+    <br/>
+
+
+
+    <span sec:authorize="isAnonymous()" style="color:#E37222">Zaloguj się aby odpowiedzieć na ten post.</span>
+    <br/><br/>
+    <div sec:authorize="isAuthenticated()">
+        <form method="POST">
+            <textarea  class="form-control" placeholder="Wpisz odpowiedź" rows="7" cols="75" name="content"/>
+            <div><button type="submit" class="btn btn-primary">Wyślij odpowiedź</button></div>
+        </form>
+    </div>
+
+
+    <br/><br/>
+    <font size="4" color="#0375B4" style="width: 100px">Odpowiedzi:</font>
+    <div th:each="answer : ${answers}">
+        <table style="width: 1000px" class="table">
+            <tr class="inner">
+                <th style="width: 100px; text-align: left">Autor: <span>
+                            <a style="font-weight:normal" th:href="@{'/user/user_profile/'+${answer.user_name}}"
+                               th:text="${answer.user_name}"/>
+            </span></th>
+            </tr>
+            <tr class="inner">
+                <th style="text-align: left;">Data: <span style="width: 150px; font-weight:normal;"
+                                                          th:text="${answer.date}"></span></th>
+
+            </tr>
+            <tr class="inner">
+                <th style="text-align: left">Treść odpowiedzi:</th>
+
+            </tr>
+            <tr class="inner">
+
+                <td class="a" th:text="${answer.content}"></td>
+
+
+            </tr>
+            <br/>
+        </table>
+        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{'/forum/delete/answer'}" method="post">
+            <input type="hidden" th:value="${answer.public_answer_id}" th:name="answer_id"/>
+            <input type="hidden" th:value="${answer.public_message_id}" th:name="public_message_id"/>
+            <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+
+    </div>
+    <br/>
+</div>
+</body>
+</html>

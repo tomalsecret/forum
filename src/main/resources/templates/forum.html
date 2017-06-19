@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Strona główna forum</title>
+
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid body-content">
+    <br/>
+
+    <form th:action="@{/forum/}" style="display: inline;" method="GET">
+        <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+        <select class="form-control" name="sort_by" size="1" onchange='this.form.submit()'>
+            <option value="">Sortuj według:</option>
+            <option value="date">Daty</option>
+            <option value="ilosc_plusow">Ilości plusów</option>
+
+        </select>
+        </div>
+    </div>
+
+        <input type="hidden" th:if="${param.category != null}" th:name="category" th:value="${param.category[0]}"/>
+    </form>
+
+
+    <form action="/forum/" style="display: inline;" method="GET">
+        <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+        <select class="form-control" name="category" size="1" onchange='this.form.submit()'>
+            <option value="">Wybierz kategorie:</option>
+            <option value="wszystkie">Wszystkie</option>
+            <option value="Ogolny">Ogólne</option>
+            <option value="inny">Inne</option>
+
+        </select>
+            </div>
+        </div>
+        <input type="hidden" th:if="${param.sort_by != null}" th:name="sort_by" th:value="${param.sort_by[0]}"/>
+
+
+    </form>
+
+
+    <div th:each="post : ${posts}">
+        <table class="table" style="width: 1000px; border-bottom: 0px">
+            <tr class="headerr" style="font-weight:bold">
+                <td>Autor:</td>
+                <td>Kategoria:</td>
+                <td>Data:</td>
+                <td>Ilosc plusow: <span style="font-weight:normal" th:text="${post.ilosc_plusow}"></span></td>
+            </tr>
+            <tr class="inner">
+                <td style="width: 100px">
+                    <a th:href="@{'/user/user_profile/'+${post.user_name}}" th:text="${post.user_name}"/>
+                </td>
+
+
+                <td style="width: 100px" th:text="${post.category}"></td>
+
+                <td style="width: 150px" th:text="${post.date}"></td>
+
+
+                <td >
+
+                        <form th:action="${post.public_message_id}" method="GET">
+                            <button type="submit" class="btn btn-primary">Zobacz</button>
+
+                        </form>
+
+                </td>
+                <br/>
+            </tr>
+            <tr class="inner">
+                <th style="width: 50px; color: #0375B4; text-align: left">Temat:</th>
+                <th></th><th></th><th></th>
+            </tr>
+            <tr class="inner">
+                <td class="a" th:text="${#strings.abbreviate(post.topic,100)}"></td>
+                <td></td><td></td><td></td>
+            </tr>
+
+        </table>
+
+
+
+        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{'/forum/delete/post'}" method="post">
+            <input type="hidden" th:value="${post.public_message_id}" th:name="id"/>
+            <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+
+    </div>
+    <br/>
+</div>
+</body>
+</html>

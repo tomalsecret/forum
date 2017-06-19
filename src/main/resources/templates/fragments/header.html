@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+</head>
+<body>
+
+<div th:fragment="header">
+
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+
+
+
+
+
+    <nav class="navbar navbar-default navbar-fixed-top navdefault">
+        <div class="container">
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ><a href="/forum/">Strona główna</a></li>
+
+                    <td sec:authorize="isAnonymous()">
+                        <li><a href="/user/login">Zaloguj</a></li>
+                        <li><a href="/user/register">Zarejestruj</a></li>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li><a href="/user/admin">Zarządzaj forum</a></li>
+                    </td>
+                    <td sec:authorize="isAuthenticated()">
+                        <li><a href="/forum/add_pub_msg/">Dodaj nowy post</a></li>
+                        <li><a href="/user/my_profile">Profil</a></li>
+                        <li><a href="/user/listall">Pokaż użytkowników</a></li>
+                        <li><a href="/logout">Wyloguj </a></li>
+
+                    </td>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

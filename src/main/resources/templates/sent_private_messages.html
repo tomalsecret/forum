@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Wysłane wiadomości</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+
+    <form th:action="@{/private_messages/}" method="get">
+
+        <button type="submit"  class="btn btn-info">Moje odebrane wiadomości</button>
+</form>
+    <form th:action="@{/user/my_profile}" method="get">
+
+        <button type="submit" class="btn btn-info">Powrót do profilu</button>
+    </form>
+
+    <br/><font size="4" color="#0375B4" style="width: 100px">Twoje wysłane wiadomości:</font><br/>
+<div th:each="message : ${sentMessages}">
+    <table class="table" style="width: 1000px; border-bottom: 0px">
+        <tr class="headermessage">
+            <td style="font-weight:bold">Odbiorca:</td>
+            <td style="font-weight:bold">Data:</td>
+            <td style="font-weight:bold">Przeczytaj całą wiadomość:</td>
+        </tr>
+        <tr class="inner">
+
+            <td style="width: 100px">
+                <a th:href="@{'/user/user_profile/'+${message.receiver_name}}" th:text="${message.receiver_name}"/>
+
+            </td>
+
+
+            <td style="width: 150px" th:text="${message.date}"></td>
+
+
+            <td style="width: 100px">
+                <center>
+                    <form th:action="${message.private_message_id}" method="get">
+
+                        <button type="submit" class="btn btn-seeprivate">Zobacz</button>
+
+                    </form>
+                </center>
+            </td>
+            <br/>
+        </tr>
+        <tr class="inner">
+            <th style="width: 50px; color: #0375B4; text-align: left">Temat:</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr class="inner">
+            <td class="a" th:text="${#strings.abbreviate(message.topic,100)}"></td>
+            <td></td> <td></td>
+        </tr>
+        <tr class="inner">
+
+            <th style="width: 50px;color: #0375B4; text-align: left">Treść wiadomości:</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr class="inner">
+        <td class="a" th:text="${#strings.abbreviate(message.content,500)}"></td>
+            <td></td> <td></td>
+
+        </tr>
+    </table>
+
+
+</div>
+</div>
+</body>
+</html>

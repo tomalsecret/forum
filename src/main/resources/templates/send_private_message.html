@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Wyślij wiadomość</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid body-content"><br/>
+<div sec:authorize="isAuthenticated()">
+    <form method="POST">
+
+        <textarea  class="form-control" placeholder="Wpisz temat" rows="2" cols="40" name="topic"/><br/>
+
+        <textarea class="form-control" placeholder="Wpisz treść" rows="15" cols="75" name="content"/><br/>
+
+
+
+        <input type="text" class="form-control smallwidth" placeholder="Klucz do zaszyfrowania (liczba)" th:name="key"/><br/>
+
+
+        <div><button type="submit" class="btn btn-seeprivate">Wyślij wiadomość</button></div>
+
+    </form>
+
+
+</div>
+</div>
+</body>
+</html>

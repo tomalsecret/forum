@@ -1,0 +1,139 @@
+h1{
+    color:#CDCDCD;
+}
+h1.admin{
+    color:red;
+}
+h2{
+    color:#FF0000;
+}
+.navdefault {
+    background-color: #39CCCC;
+    border-color: #39CCCC;
+    font: 16px verdana, sans-serif;
+}
+.btn-primary{
+    background-color: #39CCCC;
+}
+.btn-seeprivate{
+    background-color: #0375B4;
+    color: white;
+}
+.btn-seesend{
+    background-color: #1FB58F;
+}
+.btn-warning{
+    background-color: #FBA100;
+}
+
+.btn-danger{
+    background-color: #E37222;
+}
+.btn-dangerr{
+    background-color:#ff1a1a;
+}
+.btn-dangerr:hover{
+    background-color:#e60000;
+}
+body { padding-top: 70px;
+background-color: #EFEFEF;}
+
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+.seeicon{
+    color:blue;
+}
+.redheart{
+    color:red;
+}
+.bluethumbs{
+    color:blue;
+}
+table {
+    table-layout:fixed;
+}
+.table tr.headerr{
+    background-color: #39CCCC !important;
+    width: 60px;
+}
+.table tr.headermessage{
+    background-color: #88BBD6 !important;
+
+}
+.table-bordered tr.headermessage{
+    background-color: #D9D9D9 !important;
+    height: 50px;
+    border-collapse:separate;
+    border-spacing:10px 10px;
+}
+.table tr.inner{
+    background-color: #D9D9D9;
+    width:60px;
+}
+table td {
+    width: 60px;
+}
+.table-bordered tr.inner{
+    background-color: #D9D9D9;
+    height: 50px;
+    border-collapse:separate;
+    border-spacing:10px 10px;
+}
+.form-group textarea.form-control {
+    max-width: 70%;
+}
+.form-group select.maxwidth {
+    max-width: 30%;
+}
+textarea.form-control {
+    max-width: 70%;
+}
+input.smallwidth {
+    max-width: 30%;
+}
+input.averagewidth {
+    max-width: 100%;
+}
+
+
+
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #A4D555; /* Set a background color */
+    color: black; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+    color: white;
+}
